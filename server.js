@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -38,7 +37,7 @@ app.use(bodyParser.json());
 
 // Routes
 const userProfileRoutes = require('./routes/UserInfo');
-app.use('/api/user-profile', userProfileRoutes);
+app.use('/api/profile', userProfileRoutes);
 
 const chatRoutes = require('./routes/Chat');
 app.use('/api/chat', chatRoutes);

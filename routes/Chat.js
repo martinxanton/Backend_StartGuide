@@ -12,10 +12,10 @@ const model = genAI.getGenerativeModel({
 });
 
 const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
-  maxOutputTokens: 8192,
+  temperature: 0.9,
+  topP: 0.1,
+  topK: 16,
+  maxOutputTokens: 500,
   responseMimeType: 'text/plain',
 };
 
@@ -43,9 +43,6 @@ const safetySettings = [
 
 router.post('/', async (req, res) => {
   const { message, userProfile } = req.body;
-  
-  console.log(userProfile)
-  
 
   const chatSession = model.startChat({
     generationConfig,
@@ -53,7 +50,7 @@ router.post('/', async (req, res) => {
     history: [
       {
         role: 'user',
-        parts: [{ text: `Mi startup es ${userProfile.startupName}. ${userProfile.startupName} se enfoca en desarrollar ${userProfile.description}. Estamos en la industria de ${userProfile.industry} y actualmente en la etapa de desarrollo de ${userProfile.developmentStage}. Tenemos entre ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son ${userProfile.mainGoals}. Necesitamos recursos como ${userProfile.neededResources}. Nuestros principales competidores son ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como ${userProfile.challenges}.
+        parts: [{ text: `Mi startup se llama ${userProfile.startupName}, Descripcion: ${userProfile.description}, Industria: ${userProfile.industry}, Etapa de desarrollo ${userProfile.developmentStage}, Tenemos  ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son ${userProfile.mainGoals}. Necesitamos recursos como ${userProfile.neededResources}. Nuestros principales competidores son ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como ${userProfile.challenges}.
         ` }],
       },
       {
@@ -65,6 +62,9 @@ router.post('/', async (req, res) => {
 
   try {
     const result = await chatSession.sendMessage(message);
+    //print history
+    console.log('Historial:', chatSession.getHistory() );
+    console.log('Respuesta del bot:', result.response.text());
     res.json({ response: result.response.text() });
   } catch (error) {
     console.error('Error al obtener la respuesta del bot:', error);
