@@ -1,4 +1,3 @@
-// routes/chat.js
 const express = require('express');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 const router = express.Router();
