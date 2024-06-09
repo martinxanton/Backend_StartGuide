@@ -1,6 +1,5 @@
-// models/UserProfile.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../db/connection'); // Asegúrate de que la ruta es correcta
+const sequelize = require('../db/connection'); 
 
 const UserProfile = sequelize.define('UserProfile', {
   id: {

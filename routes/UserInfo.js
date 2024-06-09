@@ -47,6 +47,20 @@ try {
 }
 });
 
+// Nueva ruta: Verificar existencia de un perfil de usuario por ID
+router.get('/exists/:id', verifyToken, async (req, res) => {
+  try {
+    const userProfile = await UserProfile.findByPk(req.params.id);
+    if (userProfile) {
+      res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // Actualizar un perfil de usuario por ID
 router.put('/:id', verifyToken, async (req, res) => {
 try {
