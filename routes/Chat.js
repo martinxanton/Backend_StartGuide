@@ -3,6 +3,7 @@ const express = require('express');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 const router = express.Router();
 
+
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -38,13 +39,24 @@ const safetySettings = [
   },
 ];
 
+
+
+
 router.post('/', async (req, res) => {
-  const { message } = req.body;
+  const { message, userProfile } = req.body;
+  
+  console.log(userProfile)
+  
 
   const chatSession = model.startChat({
     generationConfig,
     safetySettings,
     history: [
+      {
+        role: 'user',
+        parts: [{ text: `Mi startup es ${userProfile.startupName}. ${userProfile.startupName} se enfoca en desarrollar ${userProfile.description}. Estamos en la industria de ${userProfile.industry} y actualmente en la etapa de desarrollo de ${userProfile.developmentStage}. Tenemos entre ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son ${userProfile.mainGoals}. Necesitamos recursos como ${userProfile.neededResources}. Nuestros principales competidores son ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como ${userProfile.challenges}.
+        ` }],
+      },
       {
         role: 'user',
         parts: [{ text: message }],

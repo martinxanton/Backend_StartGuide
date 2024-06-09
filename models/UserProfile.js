@@ -1,11 +1,13 @@
 // models/UserProfile.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../db/connection'); // Asegúrate de que la ruta es correcta
 
 const UserProfile = sequelize.define('UserProfile', {
-  userName: {
-    type: DataTypes.STRING,
-    allowNull: false
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    unique: true,
+    allowNull: false, 
   },
   startupName: {
     type: DataTypes.STRING,
@@ -50,9 +52,7 @@ const UserProfile = sequelize.define('UserProfile', {
   challenges: {
     type: DataTypes.TEXT,
     allowNull: false
-  }
+  },
 });
-
-sequelize.sync();
 
 module.exports = UserProfile;
