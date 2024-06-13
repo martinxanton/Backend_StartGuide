@@ -39,14 +39,13 @@ const safetySettings = [
 ];
 
 
-
-
 router.post('/', async (req, res) => {
   const { message, userProfile } = req.body;
 
   const chatSession = model.startChat({
     generationConfig,
     safetySettings,
+    
     history: [
       {
         role: 'user',
@@ -54,17 +53,21 @@ router.post('/', async (req, res) => {
         ` }],
       },
       {
-        role: 'user',
-        parts: [{ text: message }],
-      },
+        parts: [
+          {
+            text: "Listo, tengo apuntado toda la información de tu startup"
+          }
+        ],
+        role: 'model'
+      }
+
     ],
   });
 
   try {
     const result = await chatSession.sendMessage(message);
-    //print history
-    console.log('Historial:', chatSession.getHistory() );
-    console.log('Respuesta del bot:', result.response.text());
+    const history = await chatSession.getHistory();
+    console.log('Historial de chat:', JSON.stringify(history, null, 2));
     res.json({ response: result.response.text() });
   } catch (error) {
     console.error('Error al obtener la respuesta del bot:', error);

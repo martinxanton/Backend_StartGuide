@@ -20,8 +20,21 @@ function verifyToken(req, res, next) {
   }
 }
 
-router.get("/protected", verifyToken, (req, res) => {
-  res.status(200).json({ access: true });
+// Ruta para verificar la validez del token
+router.get('/verify-token', (req, res) => {
+  const header = req.header("Authorization") || "";
+  const token = header.split(" ")[1];
+
+  if (!token) {
+    return res.status(200).json({ valid: false });  // Token no proporcionado
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).json({ valid: true });  // Token válido
+  } catch (error) {
+    return res.status(200).json({ valid: false });  // Token no válido
+  }
 });
 
 // Create a user profile
@@ -52,7 +65,11 @@ router.get('/', verifyToken, async (req, res) => {
 router.get('/exists', verifyToken, async (req, res) => {
   try {
     const userProfile = await UserProfile.findByPk(req.user.user.id);
-    res.status(200).json(!!userProfile);
+    if (userProfile) {
+      res.status(200).json({ valid: true });
+    } else {
+      res.status(200).json({ valid: false });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

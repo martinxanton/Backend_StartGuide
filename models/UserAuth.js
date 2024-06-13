@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../db/connection'); // Asegúrate de que la ruta es correcta
+const sequelize = require('../db/connectionSQL'); // Asegúrate de que la ruta es correcta
 
 const UserAuth = sequelize.define('UserAuth', {
   username: {

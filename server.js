@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const sequelize = require('./db/connection');
+const sequelize = require('./db/connectionSQL');
+const connectMongoDB  = require('./db/connectionMongoDB')
 require('dotenv').config();
 
 const app = express();
 const port = 3000;
+
 
 const init = async () => {
   try {
@@ -19,7 +21,10 @@ const init = async () => {
       console.error('No se pudo conectar a la base de datos:', err);
     });
     await sequelize.sync();
-    console.log('Database synced');
+    console.log('Base de datos SQL sincronizada');
+
+    // Conexión a la base de datos MongoDB
+    await connectMongoDB();
   } catch (error) {
     console.error('Error syncing database:', error);
   }
