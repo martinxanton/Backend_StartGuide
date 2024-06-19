@@ -92,12 +92,36 @@ router.get("/conversations", async (req, res) => {
   }
 });
 
+router.get("/history/:uuid", async (req, res) => {
+  const userId = req.user.user.id;
+  const { uuid } = req.params;
+
+  try {
+    const userChat = await ChatHistory.findOne({ userId: userId });
+
+    if (!userChat) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const conversation = userChat.conversations.find((c) => c.uuid === uuid);
+
+    if (!conversation) {
+      return res.status(404).json({ message: "Conversation not found" });
+    }
+
+    res.json({ history: conversation.history });
+  } catch (error) {
+    console.error("Error fetching conversation history:", error);
+    res.status(500).json({ message: "Error fetching conversation history" });
+  }
+});
 
 
 router.post("/", async (req, res) => {
   const { message, userProfile, uuid, userId, botId } = req.body;
   console.log(`Received ID: ${userId}`); // Log the received ID
   console.log(`Received UUID: ${uuid}`); // Log the received UUID
+  console.log(req)
 
   let model = 1;
 
@@ -120,7 +144,7 @@ router.post("/", async (req, res) => {
 
     if (userChat) {
       console.log("Usuario encontrado en la base de datos");
-      const conversation = userChat.conversations.find((c) => c.uuid === uuid);
+      let conversation = userChat.conversations.find((c) => c.uuid === uuid);
       if (conversation) {
         console.log("Conversación encontrada");
         historyDB = conversation.history;
