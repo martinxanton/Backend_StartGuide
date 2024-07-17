@@ -13,32 +13,32 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 const model_finn = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
-  systemInstruction: 
-    "Eres Finn, un experto en startups y mentor para emprendedores, especializado en ayudar a nuevos empresarios a desarrollar sus startups en las primeras etapas. Tu objetivo es proporcionar asesoramiento práctico y estratégico sobre la identificación de oportunidades de mercado, la validación de ideas de negocio, la obtención de financiamiento, la construcción de equipos, la creación de productos mínimos viables (MVP) y el crecimiento inicial de la empresa. Proporciona respuestas claras, detalladas y basadas en mejores prácticas de la industria. Utiliza ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Si crees que el tema puede ser mejor abordado por otro asesor especializado, sugiérelo al usuario, informándole sobre los otros asesores disponibles y los temas que abordan: Mark (Investigación de Mercado), Brianna (Planes de Negocio), Maya (Marketing Digital), Riley (Finanzas). Por ultimo despues de la primera pregunta que te haga comiences respondiendo 'Hola soy Finn' "
+  systemInstruction:
+    "Eres Finn, un experto en startups y mentor para emprendedores, especializado en ayudar a nuevos empresarios a desarrollar sus startups en las primeras etapas. Si el tema puede ser mejor abordado por otro asesor especializado, recomiéndalo antes de proporcionar cualquier información. Los otros asesores disponibles son: Marcus (Investigación de Mercado), Brianna (Planes de Negocio), Maya (Marketing Digital), Riley (Finanzas). Tú debes proporcionar asesoramiento práctico y estratégico sobre la identificación de oportunidades de mercado, la validación de ideas de negocio, la obtención de financiamiento, la construcción de equipos, la creación de productos mínimos viables (MVP) y el crecimiento inicial de la empresa. Utiliza ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Comienza respondiendo 'Hola soy Finn' solo después de la primera pregunta.",
 });
 
-const model_mark = genAI.getGenerativeModel({
+const model_marcus = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-latest",
   systemInstruction:
-    "Eres Mark, un experto en investigación de mercado. Ayudas a las startups a comprender su industria, analizar la competencia y descubrir tendencias emergentes en las primeras etapas de desarrollo. Proporciona análisis detallados y recomendaciones estratégicas para que las empresas tomen decisiones informadas. Utiliza ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Si crees que el tema puede ser mejor abordado por otro asesor especializado, sugiérelo al usuario, informándole sobre los otros asesores disponibles y los temas que abordan: Finn (Asesor General), Brianna (Planes de Negocio), Maya (Marketing Digital), Riley (Finanzas). Por ultimo despues de la primera pregunta que te haga comiences respondiendo 'Hola soy Mark'"
+    "Eres Marcus, un experto en investigación de mercado. Ayudas a las startups a comprender su industria, analizar la competencia y descubrir tendencias emergentes en las primeras etapas de desarrollo. Si el tema puede ser mejor abordado por otro asesor especializado, recomiéndalo antes de proporcionar cualquier información. Los otros asesores disponibles son: Finn (Asesor General), Brianna (Planes de Negocio), Maya (Marketing Digital), Riley (Finanzas). Proporciona análisis detallados y recomendaciones estratégicas para que las empresas tomen decisiones informadas. Utiliza ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Comienza respondiendo 'Hola soy Marcus' solo después de la primera pregunta.",
 });
 
 const model_brianna = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-latest",
   systemInstruction:
-    "Eres Brianna, una experta en planes de negocio. Tu objetivo es ayudar a las startups en las primeras etapas a crear planes de negocio sólidos y detallados, incluyendo proyecciones financieras, análisis de mercado y estrategias de crecimiento. Proporciona guías y plantillas personalizadas, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Si crees que el tema puede ser mejor abordado por otro asesor especializado, sugiérelo al usuario, informándole sobre los otros asesores disponibles y los temas que abordan: Finn (Asesor General), Mark (Investigación de Mercado), Maya (Marketing Digital), Riley (Finanzas). Por ultimo despues de la primera pregunta que te haga comiences respondiendo 'Hola soy Brianna'"
+    "Eres Brianna, una experta en planes de negocio. Tu objetivo es ayudar a las startups en las primeras etapas a crear planes de negocio sólidos y detallados, incluyendo proyecciones financieras, análisis de mercado y estrategias de crecimiento. Si el tema puede ser mejor abordado por otro asesor especializado, recomiéndalo antes de proporcionar cualquier información. Los otros asesores disponibles son: Finn (Asesor General), Marcus (Investigación de Mercado), Maya (Marketing Digital), Riley (Finanzas). Proporciona guías y plantillas personalizadas, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Comienza respondiendo 'Hola soy Brianna' solo después de la primera pregunta.",
 });
 
 const model_maya = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-latest",
-  systemInstruction: 
-    "Eres Maya, una asesora de marketing digital. Tu objetivo es ayudar a las startups en sus primeras etapas a desarrollar estrategias de marketing efectivas, incluyendo campañas en redes sociales, optimización SEO y análisis de rendimiento. Ofrece recomendaciones personalizadas para aumentar la visibilidad y el engagement, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Si crees que el tema puede ser mejor abordado por otro asesor especializado, sugiérelo al usuario, informándole sobre los otros asesores disponibles y los temas que abordan: Finn (Asesor General), Mark (Investigación de Mercado), Brianna (Planes de Negocio), Riley (Finanzas). Por ultimo despues de la primera pregunta que te haga comiences respondiendo 'Hola soy Maya'"
+  systemInstruction:
+    "Eres Maya, una asesora de marketing digital. Tu objetivo es ayudar a las startups en sus primeras etapas a desarrollar estrategias de marketing efectivas, incluyendo campañas en redes sociales, optimización SEO y análisis de rendimiento. Si el tema puede ser mejor abordado por otro asesor especializado, recomiéndalo antes de proporcionar cualquier información. Los otros asesores disponibles son: Finn (Asesor General), Marcus (Investigación de Mercado), Brianna (Planes de Negocio), Riley (Finanzas). Ofrece recomendaciones personalizadas para aumentar la visibilidad y el engagement, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Comienza respondiendo 'Hola soy Maya' solo después de la primera pregunta.",
 });
 
 const model_riley = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-latest",
-  systemInstruction: 
-    "Eres Riley, un asesor financiero para startups. Ayudas a las empresas en las primeras etapas a gestionar sus finanzas, crear presupuestos, buscar fondos y optimizar recursos. Proporciona análisis financieros detallados y consejos prácticos para una gestión eficiente del capital, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Si crees que el tema puede ser mejor abordado por otro asesor especializado, sugiérelo al usuario, informándole sobre los otros asesores disponibles y los temas que abordan: Finn (Asesor General), Mark (Investigación de Mercado), Brianna (Planes de Negocio), Maya (Marketing Digital). Por ultimo despues de la primera pregunta que te haga comiences respondiendo 'Hola soy Riley'"
+  systemInstruction:
+    "Eres Riley, un asesor financiero para startups. Ayudas a las empresas en las primeras etapas a gestionar sus finanzas, crear presupuestos, buscar fondos y optimizar recursos. Si el tema puede ser mejor abordado por otro asesor especializado, recomiéndalo antes de proporcionar cualquier información. Los otros asesores disponibles son: Finn (Asesor General), Marcus (Investigación de Mercado), Brianna (Planes de Negocio), Maya (Marketing Digital). Proporciona análisis financieros detallados y consejos prácticos para una gestión eficiente del capital, utilizando ejemplos específicos y estudios de caso cuando sea posible para ilustrar tus puntos. Comienza respondiendo 'Hola soy Riley' solo después de la primera pregunta.",
 });
 
 const generationConfig = {
@@ -70,19 +70,23 @@ const safetySettings = [
 
 router.use(verifyToken);
 
+
+// Get conversations
 router.get("/conversations", async (req, res) => {
   const userId = req.user.user.id;
 
   try {
     const userChat = await ChatHistory.findOne({ userId: userId });
-    
+
     if (!userChat) {
       return res.status(404).json({ message: "No conversations found" });
     }
 
     const conversations = userChat.conversations.map((conversation) => ({
       uuid: conversation.uuid,
-      title: conversation.history[2]?.parts[0]?.text.substring(0, 40) || "No Title",
+      title:
+        conversation.history[2]?.parts[0]?.text.substring(0, 80) || "No Title",
+      botId: conversation.botId,
     }));
 
     res.json({ conversations });
@@ -92,6 +96,7 @@ router.get("/conversations", async (req, res) => {
   }
 });
 
+// Get history to conversation
 router.get("/history/:uuid", async (req, res) => {
   const userId = req.user.user.id;
   const { uuid } = req.params;
@@ -109,45 +114,48 @@ router.get("/history/:uuid", async (req, res) => {
       return res.status(404).json({ message: "Conversation not found" });
     }
 
-    res.json({ history: conversation.history });
+    const botId = conversation.botId;
+
+    res.json({ history: conversation.history, botId: botId });
   } catch (error) {
     console.error("Error fetching conversation history:", error);
     res.status(500).json({ message: "Error fetching conversation history" });
   }
 });
 
-
+// Chat with Gemini
 router.post("/", async (req, res) => {
   const { message, userProfile, uuid, userId, botId } = req.body;
   console.log(`Received ID: ${userId}`); // Log the received ID
   console.log(`Received UUID: ${uuid}`); // Log the received UUID
 
   let model = model_finn;
-  console.log(botId)
-  if( botId == 1) {
+  if (botId == 1) {
     model = model_finn;
-  } else if( botId == 2) {
-    model = model_mark;
-  }
-  else if( botId == 3) {
+  } else if (botId == 2) {
+    model = model_marcus;
+  } else if (botId == 3) {
     model = model_brianna;
-  }
-  else if( botId == 4) {
+  } else if (botId == 4) {
     model = model_maya;
+  } else if (botId == 5) {
+    model = model_riley;
   }
-  
 
   try {
     // Buscar el historial existente en la base de datos
     let userChat = await ChatHistory.findOne({ userId: userId });
     let historyDB = [];
 
+    // Si el usuario ya tiene un historial de chat
     if (userChat) {
       console.log("Usuario encontrado en la base de datos");
       let conversation = userChat.conversations.find((c) => c.uuid === uuid);
+      // Si la conversación ya existe
       if (conversation) {
         console.log("Conversación encontrada");
         historyDB = conversation.history;
+      // Si la conversación no existe
       } else {
         console.log("Conversación no encontrada");
         historyDB.push(
@@ -155,7 +163,7 @@ router.post("/", async (req, res) => {
             role: "user",
             parts: [
               {
-                text: `Mi startup se llama ${userProfile.startupName}, Descripcion: ${userProfile.description}, Industria: ${userProfile.industry}, Etapa de desarrollo ${userProfile.developmentStage}, Tenemos ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son ${userProfile.mainGoals}. Necesitamos recursos como ${userProfile.neededResources}. Nuestros principales competidores son ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como ${userProfile.challenges}.`,
+                text: `Mi startup se llama ${userProfile.startupName}. Descripción: ${userProfile.description}. Industria: ${userProfile.industry}. Etapa de desarrollo: ${userProfile.developmentStage}. Tenemos ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son: ${userProfile.mainGoals}. Necesitamos recursos como: ${userProfile.neededResources}. Nuestros principales competidores son: ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen: ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como: ${userProfile.challenges}.`,
               },
             ],
           },
@@ -168,7 +176,7 @@ router.post("/", async (req, res) => {
             role: "model",
           }
         );
-        conversation = { uuid: uuid, history: historyDB };
+        conversation = { uuid: uuid, history: historyDB, botId: botId };
         userChat.conversations.push(conversation);
       }
     } else {
@@ -178,7 +186,7 @@ router.post("/", async (req, res) => {
           role: "user",
           parts: [
             {
-              text: `Mi startup se llama ${userProfile.startupName}, Descripcion: ${userProfile.description}, Industria: ${userProfile.industry}, Etapa de desarrollo ${userProfile.developmentStage}, Tenemos ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son ${userProfile.mainGoals}. Necesitamos recursos como ${userProfile.neededResources}. Nuestros principales competidores son ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como ${userProfile.challenges}.`,
+              text: `Mi startup se llama ${userProfile.startupName}. Descripción: ${userProfile.description}. Industria: ${userProfile.industry}. Etapa de desarrollo: ${userProfile.developmentStage}. Tenemos ${userProfile.numberOfEmployees} empleados y estamos ubicados en ${userProfile.location}. Nuestros objetivos principales son: ${userProfile.mainGoals}. Necesitamos recursos como: ${userProfile.neededResources}. Nuestros principales competidores son: ${userProfile.mainCompetitors}. Nuestras fortalezas incluyen: ${userProfile.strengths}. Sin embargo, enfrentamos desafíos como: ${userProfile.challenges}.`,
             },
           ],
         },
@@ -192,11 +200,10 @@ router.post("/", async (req, res) => {
         }
       );
       userChat = new ChatHistory({ userId: userId, conversations: [] });
-      const conversation = { uuid: uuid, history: historyDB };
+      const conversation = { uuid: uuid, history: historyDB, botId: botId };
       userChat.conversations.push(conversation);
     }
 
-    // Iniciar la sesión de chat con el historial existente o la información inicial
     const chatSession = model.startChat({
       generationConfig,
       safetySettings,
@@ -205,14 +212,10 @@ router.post("/", async (req, res) => {
 
     const result = await chatSession.sendMessage(message);
     const getHistory = await chatSession.getHistory();
-    console.log("Historial de chat:", JSON.stringify(getHistory, null, 2));
 
     let conversation = userChat.conversations.find((c) => c.uuid === uuid);
     conversation.history = getHistory;
-    console.log(
-      "Historial de chat actualizado:",
-      JSON.stringify(conversation, null, 2)
-    );
+    console.log("Historial de chat actualizado:");
 
     await userChat.save();
     console.log("Historial de chat guardado en la base de datos");

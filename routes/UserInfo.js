@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = payload;  // Store the whole payload for further use
+    req.user = payload;  
     next();
   } catch (error) {
     return res.status(403).json({ message: "Token not valid" });
@@ -26,14 +26,14 @@ router.get('/verify-token', (req, res) => {
   const token = header.split(" ")[1];
 
   if (!token) {
-    return res.status(200).json({ valid: false });  // Token no proporcionado
+    return res.status(200).json({ valid: false });  // no Token
   }
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);
-    return res.status(200).json({ valid: true });  // Token válido
+    return res.status(200).json({ valid: true });  // Token invalid
   } catch (error) {
-    return res.status(200).json({ valid: false });  // Token no válido
+    return res.status(200).json({ valid: false });  // Token valid
   }
 });
 

@@ -5,7 +5,9 @@ const ChatHistorySchema = new mongoose.Schema({
     conversations: [
         {
         uuid: { type: String, required: true },
-        history: { type: Array, required: true }
+        history: { type: Array, required: true },
+        botId: { type: String, required: true },
+        likes: { type: Array }
         }
     ]
 });
