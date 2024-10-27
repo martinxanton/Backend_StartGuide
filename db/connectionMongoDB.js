@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const connectMongoDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/startbotup', {
+    // Reemplaza <db_password> con tu contraseña de MongoDB
+    await mongoose.connect(`mongodb+srv://margue:${process.env.passwordMongod}@startbot.ipxjj.mongodb.net/?retryWrites=true&w=majority&appName=startbot`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

@@ -2,41 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./db/connectionSQL');
-const connectMongoDB  = require('./db/connectionMongoDB')
+const connectMongoDB = require('./db/connectionMongoDB');
 require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-
-const init = async () => {
-  try {
-    // Conexión a la base de datos
-    await sequelize
-    .authenticate()
-    .then(() => {
-      console.log('Conexión a la base de datos establecida correctamente');
-    })
-    .catch(err => {
-      console.error('No se pudo conectar a la base de datos:', err);
-    });
-    await sequelize.sync();
-    console.log('Base de datos SQL sincronizada');
-
-    // Conexión a la base de datos MongoDB
-    await connectMongoDB();
-  } catch (error) {
-    console.error('Error syncing database:', error);
-  }
-  app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-  });
-};
-
-// Middleware
+//Middleware
 app.use(cors());
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 
 
 
@@ -50,6 +25,20 @@ app.use('/api/chat', chatRoutes);
 const authRoutes = require('./routes/Auth');
 app.use('/api/auth', authRoutes);
 
+const init = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexión a la base de datos establecida correctamente');
+    await sequelize.sync();
+    console.log('Base de datos SQL sincronizada');
 
+    await connectMongoDB();
+  } catch (error) {
+    console.error('Error syncing database:', error);
+  }
+  app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+  });
+};
 
 init();
