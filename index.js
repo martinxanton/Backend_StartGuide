@@ -10,7 +10,6 @@ const port = 3000;
 
 //Middleware
 app.use(cors());
-
 app.use(bodyParser.json());
 
 
@@ -27,18 +26,23 @@ app.use('/api/auth', authRoutes);
 
 const init = async () => {
   try {
+    // Synchronize the SQL database
     await sequelize.authenticate();
     console.log('Conexión a la base de datos establecida correctamente');
     await sequelize.sync();
     console.log('Base de datos SQL sincronizada');
-
+    
+    // Connect to MongoDB
     await connectMongoDB();
+
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Server listening at port ${port}`);
+    });
   } catch (error) {
     console.error('Error syncing database:', error);
   }
-  app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-  });
+  
 };
 
 init();
