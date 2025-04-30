@@ -68,11 +68,11 @@ const safetySettings = [
   },
 ];
 
-//router.use(verifyToken);
+router.use(verifyToken);
 
 
 // Get conversations
-router.get("/conversations", async (req, res) => {
+router.get("/conversations", verifyToken, async (req, res) => {
   const userId = req.user.user.id;
 
   try {
@@ -97,7 +97,7 @@ router.get("/conversations", async (req, res) => {
 });
 
 // Get history to conversation
-router.get("/history/:uuid", async (req, res) => {
+router.get("/history/:uuid", verifyToken, async (req, res) => {
   const userId = req.user.user.id;
   const { uuid } = req.params;
 
